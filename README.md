@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🚜 KisaanConnect - Digital Agriculture Ecosystem
 
-## Getting Started
+![KisaanConnect Banner](https://kisaanconnect-eta.vercel.app/services/mid_farmer_handshake.png)
 
-First, run the development server:
+**Live Demo:** [https://kisaanconnect-eta.vercel.app](https://kisaanconnect-eta.vercel.app)  
+**Repository:** [https://github.com/Harsahibjit-Singh/kisaanConnect](https://github.com/Harsahibjit-Singh/kisaanConnect.git)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+KisaanConnect is a full-stack **Digital Mandi Dashboard** designed to modernize agricultural commerce. It empowers Commission Agents (Arthiyas) to digitize their ledger, manage farmer networks, track sales, and issue digital loans with a premium, dark-themed user experience.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🚀 Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* **📊 Arthiya Dashboard:** Real-time visualization of sales, loans, and total capital deployment.
+* **👨‍🌾 Farmer Management:** Digital directory to add, manage, and track individual farmer profiles.
+* **💰 Loan System:** Issue and track loans with automated interest calculations and settlement tracking.
+* **🧾 Digital J-Forms:** Automatically generates legal-grade **PDF Receipts** for every crop sale.
+* **📧 Automated Notifications:** Sends premium, **dark-themed emails** (via Nodemailer) for:
+    * Welcome/Onboarding
+    * Loan Sanctions & Settlements (with PDF attachments)
+    * Sale Confirmations (with J-Form PDF)
+    * Security Alerts (Login/Password Reset)
+* **🔐 Secure Auth:** Complete authentication system with Password Reset flows.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* **Framework:** Next.js 14 (App Router)
+* **Database:** MongoDB & Mongoose
+* **Styling:** Tailwind CSS (Glassmorphism/Dark UI)
+* **Authentication:** NextAuth.js
+* **Email Engine:** Nodemailer
+* **PDF Generation:** PDFKit (Server-side streaming)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---

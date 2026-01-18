@@ -86,7 +86,6 @@
 //     return NextResponse.json({ error: 'Failed to fetch sales' }, { status: 500 });
 //   }
 // }
-
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Sale from '@/models/Sale';
@@ -113,28 +112,39 @@ export async function POST(req) {
   
   try {
     // 2. Destructure Data
-    const { farmerId, cropType, quantity, price, commissionRate, pdfData } = await req.json();
+    // We get the EXACT calculated values from the frontend
+    const body = await req.json();
+    const { 
+        farmerId, 
+        cropType, 
+        quantity, 
+        price, 
+        commissionRate, 
+        commissionAmount, // <--- CRITICAL: Get this from frontend
+        deductedLoanAmount, // <--- Get loan deduction
+        totalAmount, // <--- Get final total
+        pdfData 
+    } = body;
     
-    // 3. Calculations
-    const totalAmount = quantity * price;
-    const commission = totalAmount * (commissionRate / 100);
-
-    // 4. Create Sale (WITH OWNERSHIP)
+    // 3. Create Sale (WITH OWNERSHIP)
     const sale = await Sale.create({
-      arthiyaId: session.user.id, // <--- Link to logged in user
+      arthiyaId: session.user.id,
       farmerId,
       cropType,
       quantity,
       price,
-      totalAmount,
-      commission,
+      commissionRate,
+      // FIX: Map the input to the correct Database field names
+      commissionAmount: commissionAmount, 
+      deductedLoanAmount: deductedLoanAmount || 0,
+      totalAmount: totalAmount,
       date: new Date()
     });
 
-    // 5. Fetch Farmer Details for Email
+    // 4. Fetch Farmer Details for Email
     const farmer = await Farmer.findById(farmerId);
     
-    // 6. Send Email if possible
+    // 5. Send Email if possible
     if (farmer && farmer.email && pdfData) {
       try {
         // Clean Base64 string for attachment
@@ -191,7 +201,16 @@ export async function POST(req) {
                                    <td style="color: #fff; font-size: 14px; text-align: right; padding-bottom: 10px;">₹${price} / Qt</td>
                                 </tr>
                                 <tr>
-                                   <td style="color: #888; font-size: 14px; padding-top: 10px; border-top: 1px solid #333;">Total Amount</td>
+                                   <td style="color: #888; font-size: 14px; padding-bottom: 10px;">Commission</td>
+                                   <td style="color: #ef4444; font-size: 14px; text-align: right; padding-bottom: 10px;">- ₹${commissionAmount}</td>
+                                </tr>
+                                ${deductedLoanAmount > 0 ? `
+                                <tr>
+                                   <td style="color: #888; font-size: 14px; padding-bottom: 10px;">Loan Deduction</td>
+                                   <td style="color: #ef4444; font-size: 14px; text-align: right; padding-bottom: 10px;">- ₹${deductedLoanAmount}</td>
+                                </tr>` : ''}
+                                <tr>
+                                   <td style="color: #888; font-size: 14px; padding-top: 10px; border-top: 1px solid #333;">Net Payable</td>
                                    <td style="color: #22c55e; font-size: 18px; font-weight: bold; text-align: right; padding-top: 10px; border-top: 1px solid #333;">₹${totalAmount.toLocaleString()}</td>
                                 </tr>
                              </table>

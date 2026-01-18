@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react'; // Added Suspense
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -11,7 +11,8 @@ import Link from 'next/link';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
-export default function NewSale() {
+// 1. RENAME ORIGINAL COMPONENT (Remove export default)
+function NewSaleContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const preSelectedFarmerId = searchParams.get('farmerId');
@@ -278,8 +279,8 @@ export default function NewSale() {
         <div className="lg:col-span-2 bg-[#0A0A0A] border border-white/5 rounded-[2rem] p-8 relative overflow-hidden z-20 shadow-2xl">
           
           <div className="flex items-center gap-4 mb-8">
-             <Link href="/dashboard"><button className="p-3 bg-white/5 rounded-2xl hover:bg-white/10"><FaArrowLeft /></button></Link>
-             <h1 className="text-2xl font-bold">New Sale Entry</h1>
+              <Link href="/dashboard"><button className="p-3 bg-white/5 rounded-2xl hover:bg-white/10"><FaArrowLeft /></button></Link>
+              <h1 className="text-2xl font-bold">New Sale Entry</h1>
           </div>
 
           {/* SUCCESS MODAL OVERLAY */}
@@ -445,5 +446,18 @@ export default function NewSale() {
 
       </motion.div>
     </div>
+  );
+}
+
+// 2. ADD SUSPENSE WRAPPER (This fixes the build error)
+export default function NewSale() {
+  return (
+    <Suspense fallback={
+      <div className="flex h-screen items-center justify-center bg-black">
+        <FaSpinner className="animate-spin text-4xl text-green-500" />
+      </div>
+    }>
+      <NewSaleContent />
+    </Suspense>
   );
 }
