@@ -14,11 +14,11 @@ KisaanConnect is a full-stack **Digital Mandi Dashboard** designed to modernize 
 * **📊 Arthiya Dashboard:** Real-time visualization of sales, loans, and total capital deployment.
 * **👨‍🌾 Farmer Management:** Digital directory to add, manage, and track individual farmer profiles.
 * **💰 Loan System:** Issue and track loans with automated interest calculations and settlement tracking.
-* **🧾 Digital J-Forms:** Automatically generates legal-grade **PDF Receipts** for every crop sale.
+* **🧾 Digital Sale-Forms:** Automatically generates legal-grade **PDF Receipts** for every crop sale.
 * **📧 Automated Notifications:** Sends premium, **dark-themed emails** (via Nodemailer) for:
     * Welcome/Onboarding
     * Loan Sanctions & Settlements (with PDF attachments)
-    * Sale Confirmations (with J-Form PDF)
+    * Sale Confirmations (with Sale-Form PDF)
     * Security Alerts (Login/Password Reset)
 * **🔐 Secure Auth:** Complete authentication system with Password Reset flows.
 
